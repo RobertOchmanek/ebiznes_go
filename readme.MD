@@ -16,5 +16,7 @@
 - `./main`
 
 ## CRUD operations:
-- `curl -v -X GET http://localhost:8080/users` to get all users
-- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"username","Email":"example@mail.com"}` to add new user
+- `curl -v -X GET http://localhost:8080/users` get all users
+- `curl -v -X POST http://localhost:8080/users/:id` get user by id
+- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"username","Email":"example@mail.com"}` add new user
+- `curl -v -X DELETE http://localhost:8080/users/:id` delete user by id
