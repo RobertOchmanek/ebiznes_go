@@ -13,6 +13,9 @@ func Init() *echo.Echo {
 	//Initialize endpoints and handler methods
 	e.GET("/", api.HomePage)
 	e.GET("/users", api.FindUsers)
+	e.GET("/users/:id", api.FindUser)
+	e.POST("/users", api.AddUser)
+	e.DELETE("/users/:id", api.RemoveUser)
 
 	return e
 }

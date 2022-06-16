@@ -16,3 +16,43 @@ func FindUsers(c echo.Context) error {
 
 	return c.JSON(http.StatusOK, users)
 }
+
+func FindUser(c echo.Context) error {
+
+	//Get object ID from query param
+	id := c.Param("id")
+
+	//Obtain current database connection and fetch user by ID
+	db := database.DbManager()
+	var user model.User
+    db.Where("id = ?", id).Find(&user)
+
+	return c.JSON(http.StatusOK, user)
+}
+
+func AddUser(c echo.Context) error {
+
+	//Bind json from request to object
+	newUser := new(model.User)
+	c.Bind(newUser)
+
+	//Obtain current database connection and save new user
+	db := database.DbManager()
+	db.Create(&newUser)
+
+	return c.JSON(http.StatusOK, newUser)
+}
+
+func RemoveUser(c echo.Context) error {
+
+	//Get object ID from query param
+	id := c.Param("id")
+
+	//Obtain current database connection and remove user by ID
+	db := database.DbManager()
+	var user model.User
+    db.Where("id = ?", id).Find(&user)
+	db.Delete(&user)
+
+	return c.JSON(http.StatusOK, user)
+}
