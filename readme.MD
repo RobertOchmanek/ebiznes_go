@@ -14,3 +14,7 @@
 - `go get -u github.com/jinzhu/gorm`
 - `go build main.go`
 - `./main`
+
+## CRUD operations:
+- `curl -v -X GET http://localhost:8080/users` to get all users
+- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"username","Email":"example@mail.com"}'
