@@ -43,6 +43,28 @@ func AddUser(c echo.Context) error {
 	return c.JSON(http.StatusOK, newUser)
 }
 
+func UpdateUser(c echo.Context) error {
+
+	//Get object ID from query param
+	id := c.Param("id")
+
+	//Bind json from request to object
+	updatedUser := new(model.User)
+	c.Bind(updatedUser)
+
+	//Obtain current database connection and update user by ID
+	db := database.DbManager()
+	var user model.User
+    db.Where("id = ?", id).Find(&user)
+
+	//Update and save DB object
+	user.Username = updatedUser.Username
+	user.Email = updatedUser.Email
+	db.Save(&user)
+
+	return c.JSON(http.StatusOK, user)
+}
+
 func RemoveUser(c echo.Context) error {
 
 	//Get object ID from query param
