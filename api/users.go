@@ -19,7 +19,7 @@ func FindUsers(c echo.Context) error {
 
 func FindUser(c echo.Context) error {
 
-	//Get object ID from query param
+	//Get user ID from query param
 	id := c.Param("id")
 
 	//Obtain current database connection and fetch user by ID
@@ -45,7 +45,7 @@ func AddUser(c echo.Context) error {
 
 func UpdateUser(c echo.Context) error {
 
-	//Get object ID from query param
+	//Get user ID from query param
 	id := c.Param("id")
 
 	//Bind json from request to object
@@ -67,7 +67,7 @@ func UpdateUser(c echo.Context) error {
 
 func RemoveUser(c echo.Context) error {
 
-	//Get object ID from query param
+	//Get user ID from query param
 	id := c.Param("id")
 
 	//Obtain current database connection and remove user by ID
