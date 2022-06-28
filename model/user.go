@@ -9,4 +9,5 @@ type User struct {
 	gorm.Model
 	Username string
 	Email    string
+	Orders   []Order
 }

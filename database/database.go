@@ -38,6 +38,12 @@ func initializeData(db *gorm.DB) {
 	}
 	db.Create(&user_1)
 
+	user_2 := model.User{
+		Username: "Tomasz",
+		Email: "tomasz@domain.com",
+	}
+	db.Create(&user_2)
+
 	product_1 := model.Product{
 		Name: "iPhone 13 Pro",
 		Price: 999.0,
@@ -57,6 +63,7 @@ func initializeData(db *gorm.DB) {
 	db.Create(&product_3)
 
 	order := model.Order{
+		UserId: 1,
 		Products: []model.Product{product_1, product_2},
 	}
 	db.Create(&order)

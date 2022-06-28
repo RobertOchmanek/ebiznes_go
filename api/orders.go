@@ -53,5 +53,10 @@ func CreateOrder(c echo.Context) error {
 	newOrder.Products = products
 	db.Create(&newOrder)
 
+	var user model.User
+	db.Where("id = ?", restOrder.UserId).Find(&user)
+	user.Orders = append(user.Orders, newOrder)
+	db.Save(&user)
+
 	return c.JSON(http.StatusOK, newOrder)
 }
