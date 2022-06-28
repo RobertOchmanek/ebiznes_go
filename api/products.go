@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func FindProducts(c echo.Context) error {
+func GetProducts(c echo.Context) error {
 
 	//Obtain current database connection and fetch products
 	db := database.DbManager()
@@ -17,7 +17,7 @@ func FindProducts(c echo.Context) error {
 	return c.JSON(http.StatusOK, products)
 }
 
-func FindProduct(c echo.Context) error {
+func GetProduct(c echo.Context) error {
 
 	//Get product ID from query param
 	id := c.Param("id")
@@ -25,7 +25,7 @@ func FindProduct(c echo.Context) error {
 	//Obtain current database connection and fetch product by ID
 	db := database.DbManager()
 	var product model.Product
-    db.Where("product_id = ?", id).Find(&product)
+    db.Where("id = ?", id).Find(&product)
 
 	return c.JSON(http.StatusOK, product)
 }
@@ -55,7 +55,7 @@ func UpdateProduct(c echo.Context) error {
 	//Obtain current database connection and update product by ID
 	db := database.DbManager()
 	var product model.Product
-    db.Where("product_id = ?", id).Find(&product)
+    db.Where("id = ?", id).Find(&product)
 
 	//Update and save DB object
 	product.Name = updatedProduct.Name
@@ -73,7 +73,7 @@ func RemoveProduct(c echo.Context) error {
 	//Obtain current database connection and remove product by ID
 	db := database.DbManager()
 	var product model.Product
-    db.Where("product_id = ?", id).Find(&product)
+    db.Where("id = ?", id).Find(&product)
 	db.Delete(&product)
 
 	return c.JSON(http.StatusOK, product)

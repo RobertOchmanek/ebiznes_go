@@ -32,29 +32,31 @@ func DbManager() *gorm.DB {
 
 func initializeData(db *gorm.DB) {
 
+	user_1 := model.User{
+		Username: "Robert",
+		Email: "robert@domain.com",
+	}
+	db.Create(&user_1)
+
 	product_1 := model.Product{
-		ProductId: 1,
 		Name: "iPhone 13 Pro",
 		Price: 999.0,
 	}
 	db.Create(&product_1)
 
 	product_2 := model.Product{
-		ProductId: 2,
 		Name: "iPhone 12 Mini",
 		Price: 599.0,
 	}
 	db.Create(&product_2)
 
 	product_3 := model.Product{
-		ProductId: 3,
 		Name: "iPhone SE",
 		Price: 429.0,
 	}
 	db.Create(&product_3)
 
 	order := model.Order{
-		OrderId: 1,
 		Products: []model.Product{product_1, product_2},
 	}
 	db.Create(&order)

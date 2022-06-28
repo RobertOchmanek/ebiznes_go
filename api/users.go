@@ -7,7 +7,7 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-func FindUsers(c echo.Context) error {
+func GetUsers(c echo.Context) error {
 
 	//Obtain current database connection and fetch users
 	db := database.DbManager()
@@ -17,7 +17,7 @@ func FindUsers(c echo.Context) error {
 	return c.JSON(http.StatusOK, users)
 }
 
-func FindUser(c echo.Context) error {
+func GetUser(c echo.Context) error {
 
 	//Get user ID from query param
 	id := c.Param("id")
