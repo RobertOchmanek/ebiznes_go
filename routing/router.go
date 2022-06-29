@@ -5,8 +5,6 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
-//TODO: products quantity, edit/remove product
-
 func Init() *echo.Echo {
 
 	//Create server instance
@@ -26,7 +24,6 @@ func Init() *echo.Echo {
 	e.GET("/users/:id", api.GetUser)
 	e.POST("/users", api.AddUser)
 	e.PUT("/users/:id", api.UpdateUser)
-	e.DELETE("/users/:id", api.RemoveUser)
 
 	e.GET("/categories", api.GetCategories)
 	e.GET("/categories/:id", api.GetCategory)
