@@ -1,15 +1,16 @@
 package model
 
-type PaymentMethod int64
+//Enum for allowed payment types
+type PaymentType int
 
 const (
-	Blik PaymentMethod         = 0
-	CreditCard PaymentMethod   = 1
-	BankTransfer PaymentMethod = 2
+	Blik PaymentType = iota
+	CreditCard
+	BankTransfer
 )
 
-func (pm PaymentMethod) String() string {
-	switch pm {
+func (pt PaymentType) String() string {
+	switch pt {
 	case Blik:
 		return "BLIK"
 	case CreditCard:

@@ -76,7 +76,7 @@ func initializeData(db *gorm.DB) {
 	payment_1 := model.Payment{
 		OrderId: 1,
 		Accepted: true,
-		PaymentMethod: 1,
+		PaymentType: model.Blik,
 	}
 	db.Create(&payment_1)
 
