@@ -74,6 +74,12 @@ func initializeData(db *gorm.DB) {
 	}
 	db.Create(&category_1)
 
+	category_2 := model.Category{
+		Name: "Tablet",
+		Products: []model.Product{},
+	}
+	db.Create(&category_2)
+
 	payment_1 := model.Payment{
 		OrderId: 1,
 		Accepted: true,
