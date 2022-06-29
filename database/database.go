@@ -32,6 +32,7 @@ func DbManager() *gorm.DB {
 	return db
 }
 
+//Initialize database with mocked data
 func initializeData(db *gorm.DB) {
 
 	user_1 := model.User{

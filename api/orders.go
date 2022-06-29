@@ -48,9 +48,15 @@ func CreateOrder(c echo.Context) error {
 		products = append(products, product)
 	}
 
-	//Save new order
+	//Convert payment from REST DTO to model object
+	payment := model.Payment{}
+	payment.Accepted = restOrder.Payment.Accepted
+	payment.PaymentType = restOrder.Payment.PaymentType
+
+	//Save new order, order ID is added by GORM
 	newOrder := model.Order{}
 	newOrder.Products = products
+	newOrder.Payment = payment
 	db.Create(&newOrder)
 
 	user := model.User{}
