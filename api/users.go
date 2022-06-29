@@ -24,7 +24,7 @@ func GetUser(c echo.Context) error {
 
 	//Obtain current database connection and fetch user by ID
 	db := database.DbManager()
-	var user model.User
+	user := model.User{}
     db.Where("id = ?", id).Preload("Orders.Products").Find(&user)
 
 	return c.JSON(http.StatusOK, user)
@@ -54,7 +54,7 @@ func UpdateUser(c echo.Context) error {
 
 	//Obtain current database connection and update user by ID
 	db := database.DbManager()
-	var user model.User
+	user := model.User{}
     db.Where("id = ?", id).Find(&user)
 
 	//Update and save DB object
@@ -72,7 +72,7 @@ func RemoveUser(c echo.Context) error {
 
 	//Obtain current database connection and remove user by ID
 	db := database.DbManager()
-	var user model.User
+	user := model.User{}
     db.Where("id = ?", id).Preload("Orders.Products").Find(&user)
 
 	for _, order := range user.Orders {

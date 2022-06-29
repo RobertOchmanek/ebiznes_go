@@ -13,7 +13,7 @@ func GetOrders(c echo.Context) error {
 	//Obtain current database connection and fetch orders
 	db := database.DbManager()
 	orders := []model.Order{}
-	db.Preload("Products").Find(&orders)
+	db.Preload("Payment").Preload("Products").Find(&orders)
 
 	return c.JSON(http.StatusOK, orders)
 }
@@ -25,8 +25,8 @@ func GetOrder(c echo.Context) error {
 
 	//Obtain current database connection and fetch order by ID
 	db := database.DbManager()
-	var order model.Order
-    db.Where("id = ?", id).Preload("Products").Find(&order)
+	order := model.Order{}
+    db.Where("id = ?", id).Preload("Payment").Preload("Products").Find(&order)
 
 	return c.JSON(http.StatusOK, order)
 }
@@ -43,7 +43,7 @@ func CreateOrder(c echo.Context) error {
 	//Fetch products from request by IDs
 	products := []model.Product{}
 	for _, id := range restOrder.ProductsIds {
-		var product model.Product
+		product := model.Product{}
 		db.Where("id = ?", id).Find(&product)
 		products = append(products, product)
 	}
@@ -53,7 +53,7 @@ func CreateOrder(c echo.Context) error {
 	newOrder.Products = products
 	db.Create(&newOrder)
 
-	var user model.User
+	user := model.User{}
 	db.Where("id = ?", restOrder.UserId).Find(&user)
 	user.Orders = append(user.Orders, newOrder)
 	db.Save(&user)

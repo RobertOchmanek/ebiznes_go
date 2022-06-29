@@ -8,5 +8,6 @@ import (
 type Order struct {
 	gorm.Model
 	UserId   int
+	Payment  Payment
 	Products []Product `gorm:"many2many:order_product;"`
 }

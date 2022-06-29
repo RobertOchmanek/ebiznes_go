@@ -7,6 +7,7 @@ import (
 //Product table for DB migration
 type Product struct {
 	gorm.Model
-	Name      string
-	Price     float32
+	CategoryId int
+	Name       string
+	Price      float32
 }

@@ -24,7 +24,7 @@ func GetProduct(c echo.Context) error {
 
 	//Obtain current database connection and fetch product by ID
 	db := database.DbManager()
-	var product model.Product
+	product := model.Product{}
     db.Where("id = ?", id).Find(&product)
 
 	return c.JSON(http.StatusOK, product)
@@ -54,7 +54,7 @@ func UpdateProduct(c echo.Context) error {
 
 	//Obtain current database connection and update product by ID
 	db := database.DbManager()
-	var product model.Product
+	product := model.Product{}
     db.Where("id = ?", id).Find(&product)
 
 	//Update and save DB object
@@ -72,7 +72,7 @@ func RemoveProduct(c echo.Context) error {
 
 	//Obtain current database connection and remove product by ID
 	db := database.DbManager()
-	var product model.Product
+	product := model.Product{}
     db.Where("id = ?", id).Find(&product)
 	db.Delete(&product)
 
