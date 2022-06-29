@@ -1,8 +1,3 @@
-## Project based on:
-- https://github.com/markpenaranda/echo-gorm
-- https://tutorialedge.net/golang/golang-orm-tutorial/
-- https://echo.labstack.com/guide/
-
 ## GCC compiller is required to run this project. To install, follow this guide:
 - https://code.visualstudio.com/docs/cpp/config-mingw
 
