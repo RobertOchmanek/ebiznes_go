@@ -13,6 +13,7 @@ func GetOrders(c echo.Context) error {
 	//Obtain current database connection and fetch orders
 	db := database.DbManager()
 	orders := []model.Order{}
+	
 	db.Preload("Payment").Preload("Products").Find(&orders)
 
 	return c.JSON(http.StatusOK, orders)
@@ -26,6 +27,7 @@ func GetOrder(c echo.Context) error {
 	//Obtain current database connection and fetch order by ID
 	db := database.DbManager()
 	order := model.Order{}
+	//Preload all category's products and payment and include in response
     db.Where("id = ?", id).Preload("Payment").Preload("Products").Find(&order)
 
 	return c.JSON(http.StatusOK, order)

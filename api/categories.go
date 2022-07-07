@@ -27,6 +27,7 @@ func GetCategory(c echo.Context) error {
 	//Obtain current database connection and fetch category by ID
 	db := database.DbManager()
 	category := model.Category{}
+	//Preload all category's products and include in response
     db.Where("id = ?", id).Preload("Products").Find(&category)
 
 	return c.JSON(http.StatusOK, category)
@@ -35,8 +36,12 @@ func GetCategory(c echo.Context) error {
 func AddCategory(c echo.Context) error {
 
 	//Bind json from request to object
-	newCategory := new(model.Category)
-	c.Bind(newCategory)
+	restCategory := new(rest.RestCategory)
+	c.Bind(restCategory)
+
+	//Create and save new DB object
+	newCategory := model.Category{}
+	newCategory.Name = restCategory.Name
 
 	//Obtain current database connection and save new category
 	db := database.DbManager()
@@ -74,6 +79,7 @@ func RemoveCategory(c echo.Context) error {
 	//Obtain current database connection and remove category by ID
 	db := database.DbManager()
 	category := model.Category{}
+	//Preload all category's products to check if it can be removed
     db.Where("id = ?", id).Preload("Products").Find(&category)
 
 	if len(category.Products) > 0 {
