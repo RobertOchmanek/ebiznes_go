@@ -13,19 +13,19 @@
 
 ## CRUD operations:
 
-#Categories:
+# Categories:
 - `curl -v -X GET http://localhost:8080/categories` get all categories (without products)
 - `curl -v -X GET http://localhost:8080/categories/:id` get category by id (with products)
 - `curl -v -X POST http://localhost:8080/categories -H 'Content-Type: application/json' -d '{"Name":"category name"}'` add new category
 - `curl -v -X PUT http://localhost:8080/categories/:id -H 'Content-Type: application/json' -d '{"Name":"category name"}'` update existing category by id
 - `curl -v -X DELETE http://localhost:8080/categories/:id` delete category by id (executed only if category doesn't contain any products)
 
-#Orders:
+# Orders:
 - `curl -v -X GET http://localhost:8080/orders` get all orders
 - `curl -v -X GET http://localhost:8080/orders/:id` get order by id
 - `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"OrderId":0,"Accepted":true,"PaymentType":0},"ProductsIds":[0,0]}'` add new order (order ID must equal to the ID of created order, payment type must be one of 'paymentType` enumeration values)
 
-#Products:
+# Products:
 - `curl -v -X GET http://localhost:8080/products` get all products
 - `curl -v -X GET http://localhost:8080/products/:id` get product by id
 - `curl -v -X POST http://localhost:8080/products -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` add new product
