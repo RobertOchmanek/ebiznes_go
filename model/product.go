@@ -10,4 +10,5 @@ type Product struct {
 	CategoryId int
 	Name       string
 	Price      float32
+	Image	   string
 }

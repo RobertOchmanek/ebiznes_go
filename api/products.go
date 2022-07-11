@@ -61,6 +61,7 @@ func UpdateProduct(c echo.Context) error {
 	product.CategoryId = updatedProduct.CategoryId
 	product.Name = updatedProduct.Name
 	product.Price = updatedProduct.Price
+	product.Image = updatedProduct.Image
 	db.Save(&product)
 
 	return c.JSON(http.StatusOK, product)

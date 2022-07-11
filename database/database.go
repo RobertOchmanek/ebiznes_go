@@ -49,34 +49,46 @@ func initializeData(db *gorm.DB) {
 
 	product_1 := model.Product{
 		CategoryId: 1,
-		Name: "iPhone 13 Pro",
-		Price: 999.0,
+		Name: "iPhone 13 Pro Max",
+		Price: 1099.0,
+		Image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-pro-max-blue-select?wid=940&hei=1112&fmt=png-alpha&.v=1645552346295",
 	}
 	db.Create(&product_1)
 
+	
 	product_2 := model.Product{
 		CategoryId: 1,
-		Name: "iPhone 12 Mini",
-		Price: 599.0,
+		Name: "iPhone 13",
+		Price: 799.0,
+		Image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/iphone-13-family-hero?wid=940&hei=1112&fmt=png-alpha&.v=1645036276543",
 	}
 	db.Create(&product_2)
 
 	product_3 := model.Product{
-		CategoryId: 1,
-		Name: "iPhone SE",
-		Price: 429.0,
+		CategoryId: 2,
+		Name: "iPad Pro",
+		Price: 899.0,
+		Image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-pro-11-select-202104_FMT_WHH?wid=2000&hei=2000&fmt=png-alpha&.v=1617067382000",
 	}
 	db.Create(&product_3)
 
+	product_4 := model.Product{
+		CategoryId: 2,
+		Name: "iPad Air",
+		Price: 599.0,
+		Image: "https://store.storeimages.cdn-apple.com/4668/as-images.apple.com/is/ipad-air-select-wifi-blue-202203?wid=940&hei=1112&fmt=png-alpha&.v=1645065732688",
+	}
+	db.Create(&product_4)
+
 	category_1 := model.Category{
 		Name: "Smartphone",
-		Products: []model.Product{product_1, product_2, product_3},
+		Products: []model.Product{product_1, product_2},
 	}
 	db.Create(&category_1)
 
 	category_2 := model.Category{
 		Name: "Tablet",
-		Products: []model.Product{},
+		Products: []model.Product{product_3, product_4},
 	}
 	db.Create(&category_2)
 
@@ -90,7 +102,7 @@ func initializeData(db *gorm.DB) {
 	order := model.Order{
 		UserId: 1,
 		Payment: payment_1,
-		Products: []model.Product{product_1, product_2},
+		Products: []model.Product{product_1, product_3},
 	}
 	db.Create(&order)
 }
