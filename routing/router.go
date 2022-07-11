@@ -3,12 +3,18 @@ package routing
 import (
 	"github.com/RobertOchmanek/ebiznes_go/api"
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/echo/v4/middleware"
 )
 
 func Init() *echo.Echo {
 
 	//Create server instance
 	e := echo.New()
+
+	e.Use(middleware.CORSWithConfig(middleware.CORSConfig{
+		AllowOrigins: []string{"*"},
+		AllowHeaders: []string{echo.HeaderOrigin, echo.HeaderContentType, echo.HeaderAccept},
+	  })) 
 
 	//Initialize endpoints and handler methods
 	e.GET("/orders", api.GetOrders)
