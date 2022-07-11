@@ -12,8 +12,27 @@
 - `./main`
 
 ## CRUD operations:
-- `curl -v -X GET http://localhost:8080/users` get all users
-- `curl -v -X GET http://localhost:8080/users/:id` get user by id
-- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"username","Email":"example@mail.com"}'` add new user
-- `curl -v -X PUT http://localhost:8080/users/:id -H 'Content-Type: application/json' -d '{"Username":"username","Email":"example@mail.com"}'` update existing user
-- `curl -v -X DELETE http://localhost:8080/users/:id` delete user by id
+
+### Categories:
+- `curl -v -X GET http://localhost:8080/categories` get all categories (without products)
+- `curl -v -X GET http://localhost:8080/categories/:id` get category by id (with products)
+- `curl -v -X POST http://localhost:8080/categories -H 'Content-Type: application/json' -d '{"Name":"category name"}'` add new category
+- `curl -v -X PUT http://localhost:8080/categories/:id -H 'Content-Type: application/json' -d '{"Name":"category name"}'` update existing category by id
+- `curl -v -X DELETE http://localhost:8080/categories/:id` delete category by id (executed only if category doesn't contain any products)
+
+### Orders:
+- `curl -v -X GET http://localhost:8080/orders` get all orders
+- `curl -v -X GET http://localhost:8080/orders/:id` get order by id
+- `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"OrderId":0,"Accepted":true,"PaymentType":0},"ProductsIds":[0,0]}'` add new order (order ID must equal to the ID of created order, payment type must be one of 'paymentType` enumeration values)
+
+### Products:
+- `curl -v -X GET http://localhost:8080/products` get all products
+- `curl -v -X GET http://localhost:8080/products/:id` get product by id
+- `curl -v -X POST http://localhost:8080/products -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` add new product
+- `curl -v -X PUT http://localhost:8080/products/:id -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` update existing product by id
+
+### Users:
+- `curl -v -X GET http://localhost:8080/users` get all users (without orders)
+- `curl -v -X GET http://localhost:8080/users/:id` get user by id (with orders)
+- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` add new user
+- `curl -v -X PUT http://localhost:8080/users/:id -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` update existing user by id
