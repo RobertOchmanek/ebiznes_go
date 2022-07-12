@@ -32,7 +32,11 @@
 - `curl -v -X PUT http://localhost:8080/products/:id -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` update existing product by id
 
 ### Users:
-- `curl -v -X GET http://localhost:8080/users` get all users (without orders)
-- `curl -v -X GET http://localhost:8080/users/:id` get user by id (with orders)
-- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` add new user
+- `curl -v -X GET http://localhost:8080/users` get all users (without cart and orders)
+- `curl -v -X GET http://localhost:8080/users/:id` get user by id (with cart and orders)
+- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` add new user (with new cart)
 - `curl -v -X PUT http://localhost:8080/users/:id -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` update existing user by id
+
+### Cart:
+- `curl -v -X GET http://localhost:8080/cart/:userId` get cart by user id (with cart items)
+- `curl -v -X PUT http://localhost:8080/cart -H 'Content-Type: application/json' -d '{"UserId":0,"CartItems":[{"CartId":0,"ProductId":0,"Quantity":0}]}'` update existing cart (items not included in updated cart but existing in DB are removed from DB, other items are saved or updated if they exist)

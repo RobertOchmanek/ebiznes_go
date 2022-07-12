@@ -30,6 +30,16 @@ func UpdateCart(c echo.Context) error {
 	//Obtain current database connection
 	db := database.DbManager()
 
+	currentCart := model.Cart{}
+	//Preload all cart items and delete current cart and it's items
+    db.Where("user_id = ?", updatedCart.UserId).Preload("CartItems").Find(&currentCart)
+
+	for _, cartItem := range currentCart.CartItems {
+		db.Delete(&cartItem)
+	}
+	db.Delete(&currentCart)
+
+	//Save updated cart as current one
 	db.Save(&updatedCart)
 	return c.JSON(http.StatusOK, updatedCart)
 }
