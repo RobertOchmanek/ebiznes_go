@@ -26,7 +26,7 @@ func GetUser(c echo.Context) error {
 	db := database.DbManager()
 	user := model.User{}
 	//Preload all user's orders and include in response
-    db.Where("id = ?", id).Preload("Orders.Products").Preload("Orders.Payment").Find(&user)
+    db.Where("id = ?", id).Preload("Orders.Products").Preload("Orders.Payment").Preload("Cart.CartItems").Find(&user)
 
 	return c.JSON(http.StatusOK, user)
 }
@@ -40,6 +40,12 @@ func AddUser(c echo.Context) error {
 	//Obtain current database connection and save new user
 	db := database.DbManager()
 	db.Create(&newUser)
+
+	newCart := model.Cart{
+		UserId: int(newUser.ID),
+		CartItems: []model.CartItem{},
+	}
+	db.Create(&newCart)
 
 	return c.JSON(http.StatusOK, newUser)
 }

@@ -24,6 +24,8 @@ func Init() {
 	db.AutoMigrate(&model.Order{})
 	db.AutoMigrate(&model.Category{})
 	db.AutoMigrate(&model.Payment{})
+	db.AutoMigrate(&model.Cart{})
+	db.AutoMigrate(&model.CartItem{})
 
 	initializeData(db)
 }
@@ -34,6 +36,18 @@ func DbManager() *gorm.DB {
 
 //Initialize database with mocked data
 func initializeData(db *gorm.DB) {
+
+	cart_1 := model.Cart{
+		UserId: 1,
+		CartItems: []model.CartItem{},
+	}
+	db.Create(&cart_1)
+
+	cart_2 := model.Cart{
+		UserId: 2,
+		CartItems: []model.CartItem{},
+	}
+	db.Create(&cart_2)
 
 	user_1 := model.User{
 		Username: "Robert",
@@ -82,13 +96,13 @@ func initializeData(db *gorm.DB) {
 
 	category_1 := model.Category{
 		Name: "Smartphone",
-		Products: []model.Product{product_1, product_2},
+		Products: []model.Product{},
 	}
 	db.Create(&category_1)
 
 	category_2 := model.Category{
 		Name: "Tablet",
-		Products: []model.Product{product_3, product_4},
+		Products: []model.Product{},
 	}
 	db.Create(&category_2)
 

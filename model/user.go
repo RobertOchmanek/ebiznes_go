@@ -9,5 +9,6 @@ type User struct {
 	gorm.Model
 	Username string
 	Email    string
+	Cart     Cart
 	Orders   []Order
 }
