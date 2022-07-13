@@ -37,7 +37,7 @@ func Init() *echo.Echo {
 	e.PUT("/categories/:id", api.UpdateCategory)
 	e.DELETE("/categories/:id", api.RemoveCategory)
 
-	e.GET("/cart/:userId", api.GetCart)
+	e.GET("/cartItems/:userId", api.GetCartItems)
 	e.PUT("/cart", api.UpdateCart)
 
 	return e
