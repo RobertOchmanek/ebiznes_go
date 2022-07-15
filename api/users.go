@@ -25,8 +25,8 @@ func GetUser(c echo.Context) error {
 	//Obtain current database connection and fetch user by ID
 	db := database.DbManager()
 	user := model.User{}
-	//Preload all user's orders and include in response
-    db.Where("id = ?", id).Preload("Orders.Products").Preload("Orders.Payment").Preload("Cart.CartItems").Find(&user)
+	//Preload user's orders and cart and include in response
+    db.Where("id = ?", id).Preload("Orders.OrderItems").Preload("Orders.Payment").Preload("Cart.CartItems").Find(&user)
 
 	return c.JSON(http.StatusOK, user)
 }

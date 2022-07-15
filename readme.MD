@@ -23,7 +23,7 @@
 ### Orders:
 - `curl -v -X GET http://localhost:8080/orders` get all orders
 - `curl -v -X GET http://localhost:8080/orders/:id` get order by id
-- `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"Accepted":true,"PaymentType":0},"ProductsIds":[0,0]}'` add new order (payment type must be one of 'paymentType` enumeration values)
+- `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"Accepted":true,"PaymentType":0},"OrderItems":[{"ProductId":0,"Quantity":0}]}'` add new order (payment type must be one of 'paymentType` enumeration values)
 
 ### Products:
 - `curl -v -X GET http://localhost:8080/products` get all products

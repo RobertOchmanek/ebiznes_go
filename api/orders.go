@@ -14,7 +14,7 @@ func GetOrders(c echo.Context) error {
 	db := database.DbManager()
 	orders := []model.Order{}
 	
-	db.Preload("Payment").Preload("Products").Find(&orders)
+	db.Preload("Payment").Preload("OrderItems").Find(&orders)
 
 	return c.JSON(http.StatusOK, orders)
 }
@@ -27,8 +27,8 @@ func GetOrder(c echo.Context) error {
 	//Obtain current database connection and fetch order by ID
 	db := database.DbManager()
 	order := model.Order{}
-	//Preload all category's products and payment and include in response
-    db.Where("id = ?", id).Preload("Payment").Preload("Products").Find(&order)
+	//Preload all order's items and payment and include in response
+    db.Where("id = ?", id).Preload("Payment").Preload("OrderItems").Find(&order)
 
 	return c.JSON(http.StatusOK, order)
 }
@@ -43,19 +43,19 @@ func CreateOrder(c echo.Context) error {
 	db := database.DbManager()
 
 	currentCart := model.Cart{}
-	//Preload all cart items and delete current cart and it's items
+	//Preload all cart's items and delete them
     db.Where("user_id = ?",  restOrder.UserId).Preload("CartItems").Find(&currentCart)
-
 	for _, cartItem := range currentCart.CartItems {
 		db.Delete(&cartItem)
 	}
 
-	//Fetch products from request by IDs
-	products := []model.Product{}
-	for _, id := range restOrder.ProductsIds {
-		product := model.Product{}
-		db.Where("id = ?", id).Find(&product)
-		products = append(products, product)
+	//Create order's items
+	orderItems := []model.OrderItem{}
+	for _, orderItem := range restOrder.OrderItems {
+		item := model.OrderItem{}
+		item.ProductId = orderItem.ProductId
+		item.Quantity = orderItem.Quantity
+		orderItems = append(orderItems, item)
 	}
 
 	//Convert payment from REST DTO to model object
@@ -65,10 +65,11 @@ func CreateOrder(c echo.Context) error {
 
 	//Save new order, order ID is added by GORM
 	newOrder := model.Order{}
-	newOrder.Products = products
+	newOrder.OrderItems = orderItems
 	newOrder.Payment = payment
 	db.Create(&newOrder)
 
+	//Update user's orders to save association between objects
 	user := model.User{}
 	db.Where("id = ?", restOrder.UserId).Find(&user)
 	user.Orders = append(user.Orders, newOrder)

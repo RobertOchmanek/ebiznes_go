@@ -7,7 +7,7 @@ import (
 //Order table for DB migration
 type Order struct {
 	gorm.Model
-	UserId   int
-	Payment  Payment
-	Products []Product `gorm:"many2many:order_product;"`
+	UserId     int
+	Payment    Payment
+	OrderItems []OrderItem
 }

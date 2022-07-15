@@ -19,10 +19,11 @@ func Init() {
 	}
 
 	//Migrate tables
-	db.AutoMigrate(&model.User{})
-	db.AutoMigrate(&model.Product{})
-	db.AutoMigrate(&model.Order{})
 	db.AutoMigrate(&model.Category{})
+	db.AutoMigrate(&model.Product{})
+	db.AutoMigrate(&model.User{})
+	db.AutoMigrate(&model.Order{})
+	db.AutoMigrate(&model.OrderItem{})
 	db.AutoMigrate(&model.Payment{})
 	db.AutoMigrate(&model.Cart{})
 	db.AutoMigrate(&model.CartItem{})
@@ -69,7 +70,6 @@ func initializeData(db *gorm.DB) {
 	}
 	db.Create(&product_1)
 
-	
 	product_2 := model.Product{
 		CategoryId: 1,
 		Name: "iPhone 13",
@@ -105,18 +105,4 @@ func initializeData(db *gorm.DB) {
 		Products: []model.Product{},
 	}
 	db.Create(&category_2)
-
-	payment_1 := model.Payment{
-		OrderId: 1,
-		Accepted: true,
-		PaymentType: model.Blik,
-	}
-	db.Create(&payment_1)
-
-	order := model.Order{
-		UserId: 1,
-		Payment: payment_1,
-		Products: []model.Product{product_1, product_3},
-	}
-	db.Create(&order)
 }

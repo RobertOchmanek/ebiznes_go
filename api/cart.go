@@ -16,9 +16,10 @@ func GetCartItems(c echo.Context) error {
 	//Obtain current database connection and fetch cart by user ID
 	db := database.DbManager()
 	cart := model.Cart{}
-	//Preload all cart items and include in response
+	//Preload all cart's items to obtain quantity and ID of each item
     db.Where("user_id = ?", userId).Preload("CartItems").Find(&cart)
 
+	//For each cart item fetch product by ID and convert it to REST DTO
 	restCartItems := []rest.RestCartItem{}
 	for _, cartItem := range cart.CartItems {
 
@@ -53,13 +54,14 @@ func UpdateCart(c echo.Context) error {
 	db := database.DbManager()
 
 	currentCart := model.Cart{}
-	//Preload all cart items and delete current cart and it's items
+	//Preload all cart's items and delete them
     db.Where("user_id = ?", updatedCart.UserId).Preload("CartItems").Find(&currentCart)
 
 	for _, cartItem := range currentCart.CartItems {
 		db.Delete(&cartItem)
 	}
 
+	//Re-create cart's items with updated values
 	updatedCartItems := []model.CartItem{}
 	for _, cartItem := range updatedCart.CartItems {
 		updatedCartItem := model.CartItem{}
