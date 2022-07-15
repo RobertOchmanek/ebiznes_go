@@ -16,27 +16,27 @@
 ### Categories:
 - `curl -v -X GET http://localhost:8080/categories` get all categories (without products)
 - `curl -v -X GET http://localhost:8080/categories/:id` get category by id (with products)
-- `curl -v -X POST http://localhost:8080/categories -H 'Content-Type: application/json' -d '{"Name":"category name"}'` add new category
-- `curl -v -X PUT http://localhost:8080/categories/:id -H 'Content-Type: application/json' -d '{"Name":"category name"}'` update existing category by id
+- `curl -v -X POST http://localhost:8080/categories -H 'Content-Type: application/json' -d '{"Name":""}'` add new category
+- `curl -v -X PUT http://localhost:8080/categories/:id -H 'Content-Type: application/json' -d '{"Name":""}'` update existing category by id
 - `curl -v -X DELETE http://localhost:8080/categories/:id` delete category by id (executed only if category doesn't contain any products)
 
 ### Orders:
 - `curl -v -X GET http://localhost:8080/orders` get all orders
 - `curl -v -X GET http://localhost:8080/orders/:id` get order by id
-- `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"OrderId":0,"Accepted":true,"PaymentType":0},"ProductsIds":[0,0]}'` add new order (order ID must equal to the ID of created order, payment type must be one of 'paymentType` enumeration values)
+- `curl -v -X POST http://localhost:8080/orders -H 'Content-Type: application/json' -d '{"UserId":0,"Payment":{"Accepted":true,"PaymentType":0},"ProductsIds":[0,0]}'` add new order (payment type must be one of 'paymentType` enumeration values)
 
 ### Products:
 - `curl -v -X GET http://localhost:8080/products` get all products
 - `curl -v -X GET http://localhost:8080/products/:id` get product by id
-- `curl -v -X POST http://localhost:8080/products -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` add new product
-- `curl -v -X PUT http://localhost:8080/products/:id -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"product name","Price":0}'` update existing product by id
+- `curl -v -X POST http://localhost:8080/products -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"","Price":0}'` add new product
+- `curl -v -X PUT http://localhost:8080/products/:id -H 'Content-Type: application/json' -d '{"CategoryId":0,"Name":"","Price":0}'` update existing product by id
 
 ### Users:
 - `curl -v -X GET http://localhost:8080/users` get all users (without cart and orders)
 - `curl -v -X GET http://localhost:8080/users/:id` get user by id (with cart and orders)
-- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` add new user (with new cart)
-- `curl -v -X PUT http://localhost:8080/users/:id -H 'Content-Type: application/json' -d '{"Username":"user name","Email":"example@mail.com"}'` update existing user by id
+- `curl -v -X POST http://localhost:8080/users -H 'Content-Type: application/json' -d '{"Username":"","Email":""}'` add new user (with new cart)
+- `curl -v -X PUT http://localhost:8080/users/:id -H 'Content-Type: application/json' -d '{"Username":"","Email":""}'` update existing user by id
 
 ### Cart:
-- `curl -v -X GET http://localhost:8080/cartItems/:userId` get cart by user id (with cart items)
-- `curl -v -X PUT http://localhost:8080/cart -H 'Content-Type: application/json' -d '{"UserId":0,"CartItems":[{"CartId":0,"ProductId":0,"Quantity":0}]}'` update existing cart (items not included in updated cart but existing in DB are removed from DB, other items are saved or updated if they exist)
+- `curl -v -X GET http://localhost:8080/cartItems/:userId` get cart items by user id
+- `curl -v -X PUT http://localhost:8080/cart -H 'Content-Type: application/json' -d '{"UserId":0,"CartItems":[{"ID":0,"CategoryId":0,"Name":"","Price":0,"Image":"","Quantity":0,"CreatedAt":"","UpdatedAt":"","DelatedAt":""}]}'` update existing cart (cart items not included in updated cart but existing in DB are removed, other items are saved or updated if they exist)
