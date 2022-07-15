@@ -46,7 +46,7 @@ func GetCartItems(c echo.Context) error {
 func UpdateCart(c echo.Context) error {
 
 	//Bind json from request to object
-	updatedCart := new(model.Cart)
+	updatedCart := new(rest.RestCart)
 	c.Bind(updatedCart)
 
 	//Obtain current database connection
@@ -60,7 +60,16 @@ func UpdateCart(c echo.Context) error {
 		db.Delete(&cartItem)
 	}
 
-	currentCart.CartItems = updatedCart.CartItems
+	updatedCartItems := []model.CartItem{}
+	for _, cartItem := range updatedCart.CartItems {
+		updatedCartItem := model.CartItem{}
+		updatedCartItem.CartId = int(currentCart.ID)
+		updatedCartItem.ProductId = cartItem.ID
+		updatedCartItem.Quantity = cartItem.Quantity
+		updatedCartItems = append(updatedCartItems, updatedCartItem)
+	}
+
+	currentCart.CartItems = updatedCartItems
 
 	//Save updated cart as current one
 	db.Save(&currentCart)

@@ -42,6 +42,14 @@ func CreateOrder(c echo.Context) error {
 	//Obtain current database connection
 	db := database.DbManager()
 
+	currentCart := model.Cart{}
+	//Preload all cart items and delete current cart and it's items
+    db.Where("user_id = ?",  restOrder.UserId).Preload("CartItems").Find(&currentCart)
+
+	for _, cartItem := range currentCart.CartItems {
+		db.Delete(&cartItem)
+	}
+
 	//Fetch products from request by IDs
 	products := []model.Product{}
 	for _, id := range restOrder.ProductsIds {
